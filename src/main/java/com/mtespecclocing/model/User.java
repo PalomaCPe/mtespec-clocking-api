@@ -35,15 +35,6 @@ public class User implements Serializable {
     @CreatedDate
     private Date createdDate;
 
-//	public User(Long id, String name, String cpf, String email, Date createdDate) {
-//		super();
-//		this.id = id;
-//		this.name = name;
-//		this.cpf = cpf;
-//		this.email = email;
-//		this.createdDate = createdDate;
-//	}
-
 	public Long getId() {
 		return id;
 	}

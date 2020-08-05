@@ -3,6 +3,8 @@ package com.mtespecclocing.controller;
 import com.mtespecclocing.exception.NotFoundException;
 import com.mtespecclocing.model.User;
 import com.mtespecclocing.repository.UserRepository;
+import com.mtespecclocing.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,45 +15,35 @@ import java.util.List;
 @RequestMapping("/api")
 public class UserController {
 
-    @Autowired
-    UserRepository userRepository;
+	@Autowired
+    UserService userService;
 
     @GetMapping("/users")
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userService.getAllUsers();
     }
 
     @PostMapping("/users")
     public User createUser(@Valid @RequestBody User user) {
-        return userRepository.save(user);
+        return userService.createUser(user);
     }
 
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable(value = "id") Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("User", "id", userId));
+        return userService.getUserById(userId);
     }
 
-//    @PutMapping("/users/{id}")
-//    public User updateUser(@PathVariable(value = "id") Long userId, @Valid @RequestBody User userDetails) {
-//        User user = userRepository.findById(userId)
-//                .orElseThrow(() -> new NotFoundException("User", "id", userId));
-//
-//        user.setTitle(userDetails.getTitle());
-//        user.setContent(userDetails.getContent());
-//
-//        User updatedUser = userRepository.save(user);
-//        return updatedUser;
-//    }
-//
-//    @DeleteMapping("/users/{id}")
-//    public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long userId) {
-//        User user = userRepository.findById(userId)
-//                .orElseThrow(() -> new NotFoundException("User", "id", userId));
-//
-//        userRepository.delete(user);
-//
-//        return ResponseEntity.ok().build();
-//    }
+    @PutMapping("/users/{id}")
+    public User updateUser(@PathVariable(value = "id") Long userId, @Valid @RequestBody User userDetails) {
+        User updatedUser = userService.updateUser(userId, userDetails);
+        return updatedUser;
+    }
+
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long userId) {
+        userService.deleteUser(userId);
+
+        return ResponseEntity.ok().build();
+    }
 }
 
