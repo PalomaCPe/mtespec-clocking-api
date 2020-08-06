@@ -8,7 +8,7 @@ import com.mtespecclocing.MtespecClockingApplication;
 @SpringBootTest(classes = MtespecClockingApplication.class)
 class MtespecClockingApplicationTests {
 
-	@Test
+//	@Test
 	void contextLoads() {
 	}
 

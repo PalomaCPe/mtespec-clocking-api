@@ -1,15 +1,22 @@
 package com.mtespecclocing.controller;
 
-import com.mtespecclocing.exception.NotFoundException;
-import com.mtespecclocing.model.User;
-import com.mtespecclocing.repository.UserRepository;
-import com.mtespecclocing.service.UserService;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mtespecclocing.model.User;
+import com.mtespecclocing.service.UserService;
 
 @RestController
 @RequestMapping("/api")
@@ -31,6 +38,11 @@ public class UserController {
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable(value = "id") Long userId) {
         return userService.getUserById(userId);
+    }
+    
+    @GetMapping("/users/totalhours/{id}")
+    public User getUserTotalHours(@PathVariable(value = "id") Long userId) {
+        return userService.getUserTotalHours(userId);
     }
 
     @PutMapping("/users/{id}")
